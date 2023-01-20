@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+from typing import Optional
 
 from pydantic import BaseModel, Extra, root_validator, validator, Field
 
@@ -51,6 +52,7 @@ class ReservationDB(ReservationBase):
     """Схема для возвращаемого объекта."""
     id: int
     meetingroom_id: int
+    user_id: Optional[int]
 
     class Config:
         orm_mode = True
