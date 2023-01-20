@@ -1,15 +1,27 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
-from pydantic import BaseModel, root_validator, validator
+from pydantic import BaseModel, Extra, root_validator, validator, Field
+
+FROM_TIME = (datetime.today() + timedelta(minutes=10)).isoformat(
+    timespec='minutes')
+TO_TIME = (datetime.today() + timedelta(hours=1)).isoformat(
+    timespec='minutes')
 
 
 class ReservationBase(BaseModel):
-    from_reserve: datetime
-    to_reserve: datetime
+    """Базовая модель.
+    :param datetime from_reserve: Время начала бронирования переговорки.
+    :param datetime to_reserve: Время окончания бронирования переговорки.
+    """
+    from_reserve: datetime = Field(..., example=FROM_TIME)
+    to_reserve: datetime = Field(..., example=TO_TIME)
+
+    class Config:
+        extra = Extra.forbid
 
 
-# Схема для полученных данных.
 class ReservationUpdate(ReservationBase):
+    """Схема для полученных данных."""
 
     @validator('from_reserve')
     def check_from_reserve_later_than_now(cls, value):
@@ -30,13 +42,13 @@ class ReservationUpdate(ReservationBase):
         return values
 
 
-# Схема для полученных данных.
 class ReservationCreate(ReservationUpdate):
+    """Схема для полученных данных"""
     meetingroom_id: int
 
 
-# Схема для возвращаемого объекта.
 class ReservationDB(ReservationBase):
+    """Схема для возвращаемого объекта."""
     id: int
     meetingroom_id: int
 
