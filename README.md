@@ -1,4 +1,4 @@
-# Проект
+## API для сервиса бронирования переговорок
 [![Python](https://img.shields.io/badge/-Python-464646?style=flat&logo=Python&logoColor=ffffff&color=043A6B)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/-FastAPI-464646?style=flat&logo=FastAPI&logoColor=ffffff&color=043A6B)](https://fastapi.tiangolo.com/)
 [![FastAPI-Users](https://img.shields.io/badge/-FastAPI_Users-464646?style=flat&logo=FastAPI&logoColor=ffffff&color=043A6B)](https://pypi.org/project/fastapi-users/)
@@ -7,6 +7,8 @@
 [![aiosqlite](https://img.shields.io/badge/-aiosqlite-464646?style=flat&logo=aiosqlite&logoColor=ffffff&color=043A6B)](https://pypi.org/project/aiosqlite/)
 [![Alembic](https://img.shields.io/badge/-Alembic-464646?style=flat&logo=Alembic&logoColor=ffffff&color=043A6B)](https://alembic.sqlalchemy.org/en/latest/)
 [![GoogleAPI](https://img.shields.io/badge/-GoogleAPI-464646?style=flat&logo=GoogleAPI&logoColor=ffffff&color=043A6B)](https://support.google.com/googleapi/?hl=en#topic=7014522)
+
+Приложение предоставляет возможность бронировать помещения на определённый период времени.
 
 ### Техническое задание
 >Одна большая IT-компания построила крупное офисное здание, и в скором времени в нём будут работать тысячи людей. 
@@ -27,6 +29,85 @@
 >У пользователя должна быть возможность забронировать свободное помещение на определённый период времени, при этом приложение должно проверять, не забронировал ли уже кто-то это помещение и свободно ли всё время, на которое бронируется эта переговорка. 
 >
 
+Клонировать репозиторий и перейти в него в командной строке:
+
+```
+git clone https://github.com/MrGorkiy/Room_reservation.git
+```
+
+```
+cd room_reservation
+```
+
+Cоздать и активировать виртуальное окружение:
+
+```
+python3 -m venv venv
+```
+
+* Если у вас Linux/MacOS
+
+    ```
+    source venv/bin/activate
+    ```
+
+* Если у вас Windows
+
+    ```
+    source venv/scripts/activate
+    ```
+
+Установить зависимости из файла requirements.txt:
+
+```
+python3 -m pip install --upgrade pip
+```
+
+```
+pip install -r requirements.txt
+```
+
+Создать файл .env:
+
+```
+APP_TITLE=Сервис бронирования переговорных комнат
+DATABASE_URL=your_database
+SECRET=your_secret
+FIRST_SUPERUSER_EMAIL=your_email
+FIRST_SUPERUSER_PASSWORD=your_password
+```
+
+Автогенерация миграций:
+
+```
+alembic revision --autogenerate -m "First migration"
+```
+
+Применение миграций:
+
+```
+alembic upgrade head
+```
+
+Запуск проекта:
+
+```
+uvicorn app.main:app --reload
+```
+
+Документация API:
+
+```
+http://127.0.0.1:8000/docs
+```
+
+### Технологии:
+- Python 3.9
+- FastAPI
+- SQLAlchemy 1.4
+- Git
+
+<!--
 
 ```bash
 uvicorn app.main:app --reload
@@ -36,3 +117,6 @@ uvicorn app.main:app --reload
 alembic revision --autogenerate -m "Add user model"
 alembic upgrade head 
 ```
+-->
+
+Автор: [MrGorkiy](https://github.com/MrGorkiy)
